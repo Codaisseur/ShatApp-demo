@@ -1,0 +1,3 @@
+rootProject.name = 'ShatApp'
+
+include ':app'
