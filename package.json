@@ -7,8 +7,14 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"babel-polyfill": "^6.23.0",
+		"feathers": "^2.1.1",
+		"feathers-authentication": "^1.2.2",
+		"feathers-hooks": "^2.0.0",
+		"feathers-socketio": "^1.6.0",
 		"react": "16.0.0-alpha.6",
 		"react-native": "0.43.3",
+		"socket.io-client": "^1.7.3",
 		"tcomb-form-native": "^0.6.7"
 	},
 	"devDependencies": {
