@@ -1,32 +1,34 @@
-// actions/users/sign-up.js
-
 import API from '../../lib/api';
-import signIn from './sign-in';
+import loadUser from './load';
 import {
   API_LOADING,
   API_READY,
   API_ERROR,
 } from '../../middleware/api'
 
+export const USER_SIGNED_IN = 'USER_SIGNED_IN';
+export const USER_AUTH_ERROR = 'USER_AUTH_ERROR';
 const api = new API();
 const users = api.service('users');
 
-export const USER_SIGNUP_ERROR = 'USER_SIGNUP_ERROR';
 
 export default (user) => {
-  return (dispatch) => {
+  return (dispatch) =>{
     dispatch({ type: API_LOADING });
-    users.create(user)
+    api.authenticate(user)
       .then((result) => {
-        dispatch(signIn(user));
+        dispatch({ type: API_READY });
+        dispatch({
+          type: USER_SIGNED_IN,
+          payload: result.data
+        });
       })
       .catch((error) => {
         dispatch({ type: API_ERROR, payload: error });
         dispatch({
-          type: USER_SIGNUP_ERROR,
+          type: USER_AUTH_ERROR,
           payload: error
         })
       });
   }
-
 }

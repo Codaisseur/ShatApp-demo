@@ -9,11 +9,17 @@
 	"dependencies": {
 		"babel-polyfill": "^6.23.0",
 		"feathers": "^2.1.1",
-		"feathers-authentication": "^1.2.2",
+		"feathers-authentication": "0.7.11",
+		"feathers-authentication-client": "^0.3.1",
 		"feathers-hooks": "^2.0.0",
+		"feathers-localstorage": "^1.0.0",
 		"feathers-socketio": "^1.6.0",
 		"react": "16.0.0-alpha.6",
 		"react-native": "0.43.3",
+		"react-native-router-flux": "^3.38.0",
+		"react-redux": "^5.0.4",
+		"redux": "^3.6.0",
+		"redux-thunk": "^2.2.0",
 		"socket.io-client": "^1.7.3",
 		"tcomb-form-native": "^0.6.7"
 	},
@@ -21,7 +27,8 @@
 		"babel-jest": "19.0.0",
 		"babel-preset-react-native": "1.9.1",
 		"jest": "19.0.2",
-		"react-test-renderer": "16.0.0-alpha.6"
+		"react-test-renderer": "16.0.0-alpha.6",
+		"remote-redux-devtools": "^0.5.7"
 	},
 	"jest": {
 		"preset": "react-native"
