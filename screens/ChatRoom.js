@@ -68,7 +68,7 @@ class ChatRoom extends Component {
       <View ref={`msg${index}`} key={index} style={styles.message}>
         <Image
           style={styles.avatar}
-          source={{uri: author.gravatar}} />
+          source={{uri: (author && author.gravatar) || 'https://unsplash.it/50/50' }} />
         <View>
           <Text style={styles.author}>{message.author}</Text>
           <Text style={styles.text}>{message.text}</Text>
