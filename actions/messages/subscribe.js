@@ -32,6 +32,23 @@ const removedMessage = (message) => {
   }
 }
 
+export const loadMessages = () => {
+  return {
+    [CALL_API]: {
+      service: 'messages',
+      method: FIND,
+      type: SUBSCRIBED_TO_MESSAGES_SERVICE,
+      authenticate: true,
+      params: {
+        query: {
+          '$sort': { createdAt: -1},
+          '$limit': 25,
+        },
+      },
+    }
+  }
+}
+
 export default () => {
   return (dispatch) => {
     api.authenticate()
@@ -42,19 +59,6 @@ export default () => {
         messages.on('removed', (message) => { dispatch(removedMessage(message)) })
       })
 
-    dispatch({
-      [CALL_API]: {
-        service: 'messages',
-        method: FIND,
-        type: SUBSCRIBED_TO_MESSAGES_SERVICE,
-        authenticate: true,
-        params: {
-          query: {
-            '$sort': { createdAt: -1},
-            '$limit': 25,
-          },
-        },
-      }
-    })
+    dispatch(loadMessages())
   }
 }

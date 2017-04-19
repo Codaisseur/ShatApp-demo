@@ -1,4 +1,4 @@
-// screens/SignUp.styles.js
+// screens/ChatRoom.styles.js
 
 import { StyleSheet } from 'react-native';
 
@@ -47,5 +47,33 @@ export default StyleSheet.create({
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center'
+  },
+  form: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  message: {
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  author: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    alignSelf: 'flex-start',
+    color: 'black',
+  },
+  text: {
+    fontSize: 20,
+    alignSelf: 'flex-start',
+    color: 'black',
+  },
+  avatar: {
+    height: 50,
+    width: 50,
+    alignSelf: 'flex-start',
+    marginRight: 10,
   },
 });

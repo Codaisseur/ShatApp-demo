@@ -1,4 +1,4 @@
-// screens/SignUp.js
+// screens/SignIn.js
 
 import React, { Component } from 'react';
 import ReactNative, {
@@ -11,9 +11,9 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 // See: https://github.com/gcanti/tcomb-form-native
 import t from 'tcomb-form-native';
-import Person, { formOptions } from '../models/Person';
+import User, { formOptions } from '../models/User';
 import loadUser from '../actions/users/load';
-import signUp from '../actions/users/sign-up';
+import signIn from '../actions/users/sign-in';
 import styles from './SignUp.styles';
 
 class SignUp extends Component {
@@ -23,7 +23,7 @@ class SignUp extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
-    this.state = { newUser: props.user };
+    this.state = { user: props.user };
   }
 
   componentWillMount() {
@@ -31,24 +31,30 @@ class SignUp extends Component {
   }
 
   componentDidMount() {
-    // focus on the "name" field
-    this.refs.form.getComponent('name').refs.input.focus();
+    // focus on the "email" field
+    this.refs.form.getComponent('email').refs.input.focus();
   }
 
-  clearForm() {
-    this.setState({ newUser: null });
+  componentDidUpdate() {
+    if (this.props.user && this.props.user._id) {
+      try {
+        Actions.chatRoom();
+      } catch(e) {
+        console.log('wait...')
+      }
+    }
   }
 
-  onChange(newUser) {
-    this.setState({ newUser });
+  onChange(user) {
+    this.setState({ user });
   }
 
   onSubmit() {
     const { form } = this.refs;
-    const newUser = form.getValue();
-    if (!newUser) return;
-    console.log(newUser);
-    this.props.signUp(newUser);
+    const user = form.getValue();
+    if (!user) return;
+    console.log(user);
+    this.props.signIn(user);
   }
 
   render() {
@@ -60,14 +66,14 @@ class SignUp extends Component {
         <KeyboardAvoidingView
           behavior="padding"
           style={styles.container}>
-          <Text style={styles.title}>Sign up for ShatApp</Text>
+          <Text style={styles.title}>Sign into ShatApp</Text>
           { user && user.error ? <Text style={styles.error}>{user.error.name} { user.error.message }</Text> : null }
 
           <Form
             ref="form"
-            type={Person}
+            type={User}
             options={formOptions}
-            value={this.state.newUser}
+            value={this.state.user}
             onChange={this.onChange} />
 
             <TouchableHighlight
@@ -76,15 +82,16 @@ class SignUp extends Component {
               onPress={this.onSubmit}
               underlayColor='#99d9f4'
             >
-              <Text style={styles.buttonText}>Sign up</Text>
+              <Text style={styles.buttonText}>Sign in</Text>
             </TouchableHighlight>
+
             <TouchableHighlight
               disabled={loading}
               style={styles.buttonSecondary}
-              onPress={Actions.signIn}
+              onPress={Actions.signUp}
               underlayColor='#99d9f4'
             >
-              <Text style={styles.buttonText}>Sign in</Text>
+              <Text style={styles.buttonText}>Sign up</Text>
             </TouchableHighlight>
         </KeyboardAvoidingView>
       </View>
@@ -94,4 +101,4 @@ class SignUp extends Component {
 
 const mapStateToProps = ({ user, loading }) => ({ user, loading });
 
-export default connect(mapStateToProps, { loadUser, signUp })(SignUp);
+export default connect(mapStateToProps, { loadUser, signIn })(SignUp);
